@@ -1,0 +1,28 @@
+[project]
+name = "zig-pixi"
+version = "0.1.0"
+description = "Showcases how to create a simple Zig executable with Pixi"
+authors = ["Matheus Catarino <matheus-catarino@hotmail.com>"]
+channels = ["conda-forge"]
+platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
+
+# Start the built executable
+[tasks.start]
+cmd = ["zig", "build", "run"]
+depends-on = ["build"]
+
+[dependencies]
+sdl2 = ">=2.30.2,<2.31"
+
+[feature.build.tasks.build]
+cmd = [
+    "zig",
+    "build",
+    "--summary",
+    "all",
+]
+inputs = ["build.zig", "src/*"]
+outputs = ["zig-out/bin/sdl_app"]
+
+[environments]
+build = ["build"]

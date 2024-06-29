@@ -1,0 +1,22 @@
+name: zig-pixi
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        runs-on: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.runs-on }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prefix-dev/setup-pixi@v0
+      - uses: mlugg/setup-zig@v1
+
+      - name: (Pixi) Info
+        run: pixi info
+      - name: (Pixi) Shell-hook view
+        run: pixi shell-hook -e build
+      - name: (Pixi) Build
+        run: pixi r build
