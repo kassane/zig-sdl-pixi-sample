@@ -8,21 +8,23 @@ platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
 
 # Start the built executable
 [tasks.start]
-cmd = ["zig", "build", "run"]
+cmd = "zig-out/bin/sdl_app"
 depends-on = ["build"]
 
 [dependencies]
 sdl2 = ">=2.30.2,<2.31"
 
-[pypi-dependencies]
+[feature.build.pypi-dependencies]
 ziglang = "*"
 
-[build-dependencies]
+[feature.build.dependencies]
 python = ">=3.12.4,<3.13"
 
 [feature.build.tasks.build]
 cmd = [
-    "zig",
+    "python",
+    "-m",
+    "ziglang",
     "build",
     "--summary",
     "all",
