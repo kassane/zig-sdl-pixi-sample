@@ -8,16 +8,8 @@ pub fn build(b: *std.Build) !void {
     // what target to build for. Here we do not override the defaults, which
     // means any target is allowed, and the default is native. Other options
     // for restricting supported target set are available.
-
-    // override default target (mingw) to native-windows-msvc on Windows
-    const target = b.standardTargetOptions(.{
-        .default_target = if (@import("builtin").os.tag == .windows)
-            try std.Target.Query.parse(.{
-                .arch_os_abi = "native-windows-msvc",
-            })
-        else
-            .{},
-    });
+    // For Windows, MinGW is default.
+    const target = b.standardTargetOptions(.{});
 
     // Standard optimization options allow the person running `zig build` to select
     // between Debug, ReleaseSafe, ReleaseFast, and ReleaseSmall. Here we do not
